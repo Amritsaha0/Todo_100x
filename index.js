@@ -1,7 +1,7 @@
 const express = require("express")
 const app = express();
-const userMiddleware = require("../middleware/user");
-const { User, Todo } = require("../db");
+const userMiddleware = require("./middleware/user.js");
+const { User, Todo } = require("./db");
 const bodyParser = require("body-parser");
 const { createTodo, updateTodo } = require("./types");
 
@@ -51,7 +51,7 @@ app.post("/todo",  async(req,res) =>{
 })
 
 
-app.get("/todos",adminMiddleware,async (req,res)=>{
+app.get("/todos",userMiddleware,async (req,res)=>{
     const response= await Todo.find({});
     res.json({
         Todos: response
@@ -59,7 +59,7 @@ app.get("/todos",adminMiddleware,async (req,res)=>{
 
 
 })
-app.put("/completed",adminMiddleware, async (req, res) => {
+app.put("/completed",userMiddleware, async (req, res) => {
     const updatePayload = req.body;
     const parsedPayload = updateTodo.safeParse(updatePayload);
     if(!parsedPayload.success){
