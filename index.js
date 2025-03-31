@@ -38,7 +38,8 @@ app.post("/todo",  async(req,res) =>{
     const description = req.body.description;
     const newTodo = await Todo.create({
             title,
-            description
+            description,
+            completed : false
     })
     res.json({
         message: 'Course created successfully', 
@@ -58,7 +59,7 @@ app.get("/todos",adminMiddleware,async (req,res)=>{
 
 
 })
-app.put("/completed",adminMiddleware, (req, res) => {
+app.put("/completed",adminMiddleware, async (req, res) => {
     const updatePayload = req.body;
     const parsedPayload = updateTodo.safeParse(updatePayload);
     if(!parsedPayload.success){
@@ -67,6 +68,17 @@ app.put("/completed",adminMiddleware, (req, res) => {
         })
         return ;
     }
+
+    await Todo.update ({
+        _id: req.body.id,
+    },{
+        completed:true   
+
+    })
+    res.json({
+        msg:"Todo marked as Completed "
+    })
+    return;
      
     
 });
