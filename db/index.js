@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://sahaamrit024:DfbMDSSPvIudCmRp@cluster0.s4oj0.mongodb.net/!st_Projecttodo');
+mongoose.connect('mongodb+srv://sahaamrit024:DfbMDSSPvIudCmRp@cluster0.s4oj0.mongodb.net/1st_Projecttodo');
 
 const UserSchema = new mongoose.Schema({
     // Schema definition here
